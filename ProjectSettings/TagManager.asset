@@ -21,9 +21,9 @@ TagManager:
   - LaserReceiver
   - Held
   - PauseScreen
-  - 
-  - 
-  - 
+  - Button
+  - LightBridge
+  - KillFloor
   - 
   - 
   - 

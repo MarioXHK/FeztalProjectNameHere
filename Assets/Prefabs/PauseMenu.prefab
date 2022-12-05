@@ -1216,6 +1216,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
@@ -1597,8 +1598,8 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 1
             m_CallState: 2
-    - name: restart
-      displayName: Restart
+    - name: restart_level
+      displayName: Restart Level
       inputType: 0
       defaultValue: 
       interactEvent:
@@ -1613,7 +1614,26 @@ MonoBehaviour:
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
-              m_StringArgument: restart
+              m_StringArgument: restart_level
+              m_BoolArgument: 0
+            m_CallState: 2
+    - name: return_title
+      displayName: Return to Title
+      inputType: 0
+      defaultValue: 
+      interactEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 58143410929352051}
+            m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+            m_MethodName: ChangeMenu
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: return_title
               m_BoolArgument: 0
             m_CallState: 2
     - name: settings
@@ -1787,10 +1807,13 @@ MonoBehaviour:
 
         Mouse - aim
 
-        LMB
-        - shoot blue portal
+        Left
+        Ctrl - Grab
 
-        RMB - shoot orange portal'
+        LMB - shoot blue portal
+
+        RMB - shoot orange
+        portal'
       inputType: 0
       defaultValue: 
       interactEvent:
@@ -1821,18 +1844,21 @@ MonoBehaviour:
     width: 800
     fields:
     - name: names
-      displayName: 'Programming, VFX and Level Design - Krzyhau
+      displayName: 'Modification Creator - MarioXHK
 
-        Title screen
-        SFX - 0x0ade
+        Programming, VFX and
+        Level Design - Krzyhau
 
-        Gameplay music - Dango360
+        Title screen SFX - 0x0ade
 
-        Credits music -
-        Hoshiyami
+        Gameplay
+        music - Dango360
+
+        Credits music - Hoshiyami
 
 
-        FEZ by Polytron Corporation
+        FEZ by Polytron
+        Corporation
 
         Portal 2 by Valve'
       inputType: 0
@@ -1917,20 +1943,20 @@ MonoBehaviour:
             m_StringArgument: main:exit
             m_BoolArgument: 0
           m_CallState: 2
-  - name: restart
-    displayName: RESTART GAME
+  - name: restart_level
+    displayName: RESTART LEVEL
     width: 0
     fields:
     - name: sure
-      displayName: 'Do you really want to
+      displayName: 'Do you want to
 
-        start the game again?'
+        start the level again?'
       inputType: 0
       defaultValue: 
       interactEvent:
         m_PersistentCalls:
           m_Calls: []
-    acceptName: RESTART
+    acceptName: RESTART LEVEL
     acceptEvent:
       m_PersistentCalls:
         m_Calls:
@@ -1943,7 +1969,64 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: Intro
+            m_StringArgument: selfrestart
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 58143410929352051}
+          m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+          m_MethodName: DisableMenu
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    denyName: CANCEL
+    denyEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 58143410929352051}
+          m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+          m_MethodName: ChangeMenu
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: main:restart
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: return_title
+    displayName: RETURN TO TITLE
+    width: 0
+    fields:
+    - name: sure
+      displayName: 'Do you really want to
+
+        go back to the title screen?'
+      inputType: 0
+      defaultValue: 
+      interactEvent:
+        m_PersistentCalls:
+          m_Calls: []
+    acceptName: TITLE SCREEN
+    acceptEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 58143410929352051}
+          m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+          m_MethodName: SetCloseAction
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: StartScreen
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 58143410929352051}

@@ -312,7 +312,7 @@ MonoBehaviour:
   _jumpHoldMultiplier: 0.55
   _groundMask:
     serializedVersion: 2
-    m_Bits: 328
+    m_Bits: 131400
   _passageMask:
     serializedVersion: 2
     m_Bits: 4480
@@ -356,6 +356,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   gunReloadTime: 0.2
+  portalgunstate: 0
+  AttachPortalToObj: 0
   DEBUG: 0
   bluePortalShootSound: {fileID: 8300000, guid: 62d2d59a9dd6d27448b99b8a5c28ef42,
     type: 3}

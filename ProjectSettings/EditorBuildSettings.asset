@@ -6,30 +6,120 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/StartScreen.unity
+    path: Assets/Scenes/Start/StartScreen.unity
     guid: 0af49d82683d85348b48fe0178475240
   - enabled: 1
-    path: Assets/Scenes/Intro.unity
+    path: Assets/Scenes/Start/Intro.unity
     guid: b6f1f286a669b7e49be58975c046b389
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Portals.unity
-    guid: 55341b24961aac0418402ab27c4d5e74
+    path: Assets/Scenes/Abstract/Portals.unity
+    guid: 88441ea96e025e74da083fcba0e5e286
   - enabled: 1
-    path: Assets/Scenes/Perspective.unity
-    guid: 0e064132db252884e9df2d43d969e455
+    path: Assets/Scenes/Abstract/Perspective.unity
+    guid: 98e6710093678d347addf8f7830b16df
   - enabled: 1
-    path: Assets/Scenes/PerspectivePortals.unity
-    guid: 3119e382307183f41bf069c24392f6c3
+    path: Assets/Scenes/Abstract/Cube.unity
+    guid: 3287bbccd3152dd4a958a56f6f1e7201
   - enabled: 1
-    path: Assets/Scenes/FunTower.unity
-    guid: 4d9fc066df46ba04380852ce13cc2b71
+    path: Assets/Scenes/Abstract/PortalCube.unity
+    guid: d3a32ccc3d00aac4ea417570cb10b38e
   - enabled: 1
-    path: Assets/Scenes/MetaPuzzle.unity
-    guid: 24b82389113418d4a8439c634159f179
+    path: Assets/Scenes/Abstract/SinglePortal.unity
+    guid: 639510ff3566fc047b52814116671dbe
   - enabled: 1
-    path: Assets/Scenes/Ending.unity
-    guid: 86a1b28257a1f534a806fae57046da38
+    path: Assets/Scenes/Abstract/Pitfalls.unity
+    guid: 7b2c47cdf65d0294399a127529303216
   - enabled: 1
-    path: Assets/Scenes/TripleLaser.unity
-    guid: d1c3109bdb54ad54c8a2b2838528e640
+    path: Assets/Scenes/Abstract/Passage.unity
+    guid: c54d7676943a0ea49ad29359ee71c92b
+  - enabled: 1
+    path: Assets/Scenes/Abstract/FunTower.unity
+    guid: 20ae3f8de94069b41a78ffc5b72cf5f9
+  - enabled: 1
+    path: Assets/Scenes/Abstract/PerspectivePortals.unity
+    guid: ff3fccfa9907cda4bb549ecb2a52627d
+  - enabled: 1
+    path: Assets/Scenes/Abstract/DoubleCube.unity
+    guid: 600fdf381dab67548971ace81b6b7c10
+  - enabled: 1
+    path: Assets/Scenes/Abstract/FunRoof.unity
+    guid: 8ba45e419f0e2094bab9b10226663504
+  - enabled: 1
+    path: Assets/Scenes/Beginnings/1_Intro.unity
+    guid: 5785e666e4f5ebd4787733a271c06d4a
+  - enabled: 1
+    path: Assets/Scenes/Beginnings/1_NewPortals.unity
+    guid: f2996cf08bfde7b4f93c62a9ffa28fb2
+  - enabled: 1
+    path: Assets/Scenes/Abstract/CubeStack.unity
+    guid: e94261c004739be4dbb11aacdc02a91f
+  - enabled: 1
+    path: Assets/Scenes/Secret/TripleLaser.unity
+    guid: 48e827cd4e40e334081d9bd58caab16f
+  - enabled: 1
+    path: Assets/Scenes/Secret/AdventureTower.unity
+    guid: 165ac9912a60d47428e1894cc33d01f3
+  - enabled: 1
+    path: Assets/Scenes/Secret/UnfinishedEnding.unity
+    guid: 087d90d662f633d4da22ee58cbde0ea5
+  - enabled: 1
+    path: Assets/Scenes/Endgame/Ending.unity
+    guid: 104264019b964614caa8a965ad9c509c
+  - enabled: 1
+    path: Assets/Scenes/Beginnings/1_LaserCube.unity
+    guid: 8aa6073759e717746ba99db72b5ccb49
+  - enabled: 1
+    path: Assets/Scenes/Beginnings/1_LaserTilt.unity
+    guid: 4e2ec2100d8d7f145afedbc91fee6ab2
   m_configObjects: {}

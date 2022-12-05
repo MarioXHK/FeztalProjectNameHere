@@ -97,10 +97,9 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
     m_Floats:
     - Texture_Size: 32
-    - Waving_Frequency: 98.25
+    - Waving_Frequency: 100
     - Waving_Scale: 0.1
     - _AlphaClip: 0
     - _Blend: 0
