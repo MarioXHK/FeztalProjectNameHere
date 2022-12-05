@@ -7,6 +7,7 @@ public class MaterialSwitch : MonoBehaviour
     public bool switched = false;
     public Material switchMaterial;
     public int switchMaterialID = 0;
+	public bool childkill = false;
 
     bool hasMaterialItself = false;
     
@@ -43,9 +44,13 @@ public class MaterialSwitch : MonoBehaviour
             render.materials = materials;
         }
 
-        //switch all materials of children
+		
+		//switch all materials of children
         foreach(Transform child in transform) {
-            var matSwitch = child.GetComponent<MaterialSwitch>();
+            
+			if (childkill) Destroy(child.gameObject); //Specifically for surfaces that turn into portal walls, only works if Attack Portal To Obj is true
+			
+			var matSwitch = child.GetComponent<MaterialSwitch>();
             if (matSwitch) {
                 matSwitch.SwitchMaterial(switched);
             }

@@ -38,6 +38,8 @@ public class GomezController : MonoBehaviour
 
     private bool _blockMovement = false;
     private bool _freezed = false;
+	
+	private bool boosted = false;
 
     public FEZCameraController CameraController => _cameraController;
     public bool Grounded => _grounded;
@@ -144,7 +146,9 @@ public class GomezController : MonoBehaviour
             }
         }
     }
-
+	public void PistoneBoost(){
+		boosted = true;
+	}
     private void HandleMovement()
     {
         Vector3 vel = _rigidbody.velocity;
@@ -156,6 +160,12 @@ public class GomezController : MonoBehaviour
             vel.y = _prevVelY;
             _prevVelY = 0;
         }
+		
+		// boosting
+		if (boosted){
+			vel.y = 20;
+		}
+		boosted = false;
 
         // jumping
         if (_grounded && _jumpState == 1)
@@ -193,7 +203,7 @@ public class GomezController : MonoBehaviour
 
         _rigidbody.velocity = vel;
     }
-
+	
     public void AttemptPassage()
     {
         if (!_grounded) return;
@@ -394,6 +404,8 @@ public class GomezController : MonoBehaviour
     public void DieFromFallingIntoDeepAndDarkAbbys()
     {
         StartCoroutine("DieSequence");
+		gameObject.GetComponent<ObjectGrabber>().AttemptGrab();
+
     }
 
     private IEnumerator DieSequence()

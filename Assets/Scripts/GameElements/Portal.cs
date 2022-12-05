@@ -16,7 +16,8 @@ public class Portal : Passage
 
     private Color _prevColor = new Color(128,128,128);
     private float _openingState = 0;
-
+	
+	
     private void Awake() {
         if (HasLinkedPortal()) {
             SetLinkedPortal((Portal)TargetPassage);
@@ -27,7 +28,9 @@ public class Portal : Passage
     private void Update() {
         // updating the size
         _portalModel.transform.localScale = Vector3.Lerp(_portalModel.transform.localScale, Vector3.one, Time.deltaTime*7.0f);
-
+		
+		
+		
         // refreshing the color if needed
         if (_prevColor != portalColor) {
             _portalModel.materials[0].SetColor("PortalColor", portalColor);

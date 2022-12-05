@@ -5,8 +5,10 @@ using UnityEngine;
 public class SecretAppearObject : MonoBehaviour
 {
     public GameObject linkedObject;
-
+	
     public float animTime;
+	
+	public bool KillSelf = true;
 
     MeshRenderer render;
 
@@ -37,6 +39,13 @@ public class SecretAppearObject : MonoBehaviour
 
     public void Activate() {
         active = true;
-        Destroy(gameObject, animTime);
+        if (KillSelf) Destroy(gameObject, animTime);
+		else StartCoroutine(Vanish());
     }
+	IEnumerator Vanish() {
+		yield return new WaitForSeconds(animTime);
+		elapsedTime = 0;
+		active = false;
+		activatedLinkedObject = false;
+	}
 }

@@ -9,7 +9,9 @@ public class PortalShooter : MonoBehaviour
     public LayerMask portalBlockMask;
     public LayerMask portalableMask;
     public float gunReloadTime = 0.2f;
-    public bool DEBUG = false;
+	public int portalgunstate = 0;
+    public bool AttachPortalToObj = false;
+	public bool DEBUG = false;
 
     [Header("Sounds")]
     public AudioClip bluePortalShootSound;
@@ -37,14 +39,20 @@ public class PortalShooter : MonoBehaviour
     const float MAX_SURFACE_DIST = 0.1f;
 
     float reloading = 0;
-
+	
+	private GameObject thing;
     
     struct PortalHitInfo
     {
         public bool portalable;
         public Vector3 origin;
     }
-
+	
+	public void UpgradeGun(int upgrade)
+    {
+        portalgunstate = upgrade;
+    }
+	
     void Start() {
         UpdateSettingsColors();
     }
@@ -69,11 +77,12 @@ public class PortalShooter : MonoBehaviour
 
     void AttemptPortalShots() 
     {
-        int shot = 0;
-        if (Input.GetMouseButtonDown(0)) {
+		
+		int shot = 0;
+        if (Input.GetMouseButtonDown(0) && (portalgunstate == 1 || portalgunstate == 2)) {
             shot = 1;
         }
-        if (Input.GetMouseButtonDown(1)) {
+        if (Input.GetMouseButtonDown(1) && (portalgunstate == 2 || portalgunstate == 3)) {
             shot = 2;
         }
 
@@ -145,8 +154,18 @@ public class PortalShooter : MonoBehaviour
                 _portal1 = CreatePortal(portalPos, portalRot, portal1Color);
             } else {
                 _portal1.Place(portalPos, portalRot);
+				
+				
+				
             }
             _portal1.portalID = shot;
+			if (AttachPortalToObj) {
+				var stuffscale = thing.transform.localScale;
+					
+				_portal1.transform.parent = thing.transform;
+					
+				_portal1.transform.localScale = new Vector3(((10.0f)/(stuffscale[0]*10)), ((10.0f)/(stuffscale[2]*10)), ((10.0f)/(stuffscale[2]*10)));
+			}
         } else if (shot == 2) {
             if (_portal2 == null) {
                 _portal2 = CreatePortal(portalPos, portalRot, portal2Color);
@@ -154,9 +173,18 @@ public class PortalShooter : MonoBehaviour
                 _portal2.Place(portalPos, portalRot);
             }
             _portal2.portalID = shot;
+			if (AttachPortalToObj) {
+				var stuffscale = thing.transform.localScale;
+					
+				_portal2.transform.parent = thing.transform;
+					
+				_portal2.transform.localScale = new Vector3(((10.0f)/(stuffscale[0]*10)), ((10.0f)/(stuffscale[2]*10)), ((10.0f)/(stuffscale[2]*10)));
+			}
         }
 
         // fix portal linkage
+		
+		
         if(_portal1 && _portal2) {
             _portal1.SetLinkedPortal(_portal2);
             _portal2.SetLinkedPortal(_portal1);
@@ -164,7 +192,8 @@ public class PortalShooter : MonoBehaviour
     }
 
     PortalHitInfo CheckPortalPlacement(Vector3 origin, Vector3 shootDir, int portalID, int iteration = 0) {
-        PortalHitInfo hitInfo;
+		
+		PortalHitInfo hitInfo;
         hitInfo.portalable = false;
         hitInfo.origin = origin;
 
@@ -173,10 +202,19 @@ public class PortalShooter : MonoBehaviour
         if (DEBUG) Debug.Log($"Checking surface on iteration {iteration}");
 
         RaycastHit hit;
-
+		
+		
+		
+		
         // checking if there is a portalable surface behind
         bool isSurface = Physics.Raycast(origin, shootDir, out hit, MAX_SURFACE_DIST, portalBlockMask);
-        if (!isSurface || !IsPortalable(hit.collider.gameObject, portalID)) {
+        
+		thing = (hit.collider.gameObject);
+		
+		
+		
+		
+		if (!isSurface || !IsPortalable(hit.collider.gameObject, portalID)) {
             if (DEBUG) Debug.Log($"Origin point wouldn't hit the surface!");
             return hitInfo;
         }
@@ -214,6 +252,13 @@ public class PortalShooter : MonoBehaviour
                 return CheckPortalPlacement(bumpedOrigin, shootDir, portalID, iteration + 1);
             }
         }
+		
+		// check if portal is being shot on another portal (only if portals can attach to objects)
+		if (thing.name == "Shot Portal" && AttachPortalToObj) {
+            if (DEBUG) Debug.Log($"Trying to shoot a portal on a portal!");
+            return hitInfo;
+        }
+		
 
         hitInfo.portalable = true;
         return hitInfo;
@@ -226,6 +271,10 @@ public class PortalShooter : MonoBehaviour
     }
 
     bool IsPortalable(GameObject go, int portalID) {
+		
+		
+		
+		
         if (GetPortalID(go) == portalID) return true;
         var meshRend = go.GetComponent<MeshRenderer>();
         if (meshRend && !meshRend.materials[0].name.Contains("white")) return false;
@@ -234,6 +283,10 @@ public class PortalShooter : MonoBehaviour
 
     Portal CreatePortal(Vector3 position, Quaternion angles, Color c) {
         GameObject portalGo = Instantiate(portalPrefab, position, angles);
+		
+		if (DEBUG) Debug.Log(thing.name);
+		if (DEBUG) Debug.Log(position);
+		if (DEBUG) Debug.Log(angles);
         Portal portal = portalGo.GetComponent<Portal>();
         portal.gameObject.name = "Shot Portal";
         portal.portalColor = c;
