@@ -312,7 +312,7 @@ public class PortalShooter : MonoBehaviour
     Dictionary<string, Color> PortalColorsDict = new Dictionary<string, Color>() {
         {"blue",    new Color(0.0f,0.5f,1.0f)},
         {"orange",  new Color(0.7f,0.5f,0.2f)},
-        {"aqua",    new Color(0.0f,0.6f,0.6f)},
+        {"cyan",    new Color(0.0f,0.6f,0.6f)},
         {"red",     new Color(0.8f,0.4f,0.3f)},
         {"yellow",  new Color(0.7f,0.6f,0.0f)},
         {"green",   new Color(0.3f,0.6f,0.3f)},
@@ -320,6 +320,17 @@ public class PortalShooter : MonoBehaviour
         {"pink",    new Color(0.6f,0.5f,0.6f)},
         {"purple",  new Color(0.5f,0.4f,0.7f)},
         {"brown",   new Color(0.5f,0.45f,0.4f)},
+		{"magenta",   new Color(0.7f,0.3f,0.7f)},
+		{"deep red",    new Color(1f,0f,0f)},
+		{"deep yellow",    new Color(1f,1f,0f)},
+		{"deep green",    new Color(0.0f,1f,0f)},
+		{"deep cyan",    new Color(0.0f,1f,1.0f)},
+		{"deep blue",    new Color(0.0f,0.0f,1.0f)},
+		{"deep magenta",   new Color(1f,0f,1f)},
+		{"black",   new Color(0f,0f,0f)},
+		{"grey",   new Color(0.3f,0.3f,0.3f)},
+		{"gray",   new Color(0.7f,0.7f,0.7f)},
+		{"white",   new Color(1f,1f,1f)},
     };
     public void UpdateSettingsColors() {
         string p1str = PlayerPrefs.GetString("setting_bluecolor");

@@ -1758,14 +1758,14 @@ MonoBehaviour:
         m_PersistentCalls:
           m_Calls: []
     - name: bluecolor
-      displayName: Blue Portal Color
+      displayName: Primary Portal Color
       inputType: 3
       defaultValue: blue
       interactEvent:
         m_PersistentCalls:
           m_Calls: []
     - name: orangecolor
-      displayName: Orange Portal Color
+      displayName: Secondary Portal Color
       inputType: 3
       defaultValue: orange
       interactEvent:
@@ -1810,9 +1810,9 @@ MonoBehaviour:
         Left
         Ctrl - Grab
 
-        LMB - shoot blue portal
+        LMB - shoot primary portal
 
-        RMB - shoot orange
+        RMB - shoot secondary
         portal'
       inputType: 0
       defaultValue: 

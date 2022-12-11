@@ -24928,6 +24928,14 @@ MonoBehaviour:
       lead: 1
       misc: 1
     interpolation: 6
+  - mapName: StartScreen
+    volumes:
+      bass: 0
+      bells: 0
+      drums: 0
+      lead: 0
+      misc: 0
+    interpolation: 0
 --- !u!4 &1843257374
 Transform:
   m_ObjectHideFlags: 0

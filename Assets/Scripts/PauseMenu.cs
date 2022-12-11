@@ -35,7 +35,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     string[] settingsColorNames = {
-        "blue", "orange", "aqua", "red", "yellow", "green", "lime", "pink", "purple", "brown"
+        "blue", "orange", "cyan", "red", "yellow", "green", "lime", "pink", "purple", "brown", "magenta", "deep red", "deep yellow", "deep green", "deep cyan", "deep blue", "deep magenta", "black", "grey", "gray", "white"
     };
 
     [Serializable]
