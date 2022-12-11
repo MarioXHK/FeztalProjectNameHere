@@ -26,6 +26,7 @@ public class FEZCameraController: MonoBehaviour
     [SerializeField] private float _aspectRatio;
     [SerializeField] private float _size;
     [SerializeField] private float _shiftRegainControlTime = 0.1f;
+	[SerializeField] private bool OrCanYou = true;
 
     [Header("Sound Effects")]
     [SerializeField] private AudioClip _shiftLeftSound;
@@ -64,6 +65,7 @@ public class FEZCameraController: MonoBehaviour
     {
         // camera perspective rotation
         if (!CanShift()) return;
+		if (!OrCanYou) return;
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -180,7 +182,7 @@ public class FEZCameraController: MonoBehaviour
 
     public bool CanShift()
     {
-        return !(_blockTimer > 0 && _lookAng == _prevLookAng) && ControlEnabled;
+		return !(_blockTimer > 0 && _lookAng == _prevLookAng) && ControlEnabled;
     }
 
     // updating camera size to not go above given aspect ratio (avoids seeing unwanted surfaces on high width and low height)

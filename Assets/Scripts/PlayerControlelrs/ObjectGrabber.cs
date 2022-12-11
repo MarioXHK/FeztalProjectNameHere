@@ -7,6 +7,7 @@ public class ObjectGrabber : MonoBehaviour
     [SerializeField] private BoxCollider _collider;
     [SerializeField] private AudioManager _audioManager;
     [SerializeField] private GomezController _playerController;
+	[SerializeField] private PortalShooter _portalShooter;
 
     [Header("Parameters")]
     [SerializeField] private float _maxGrabbedDistance;
@@ -22,7 +23,6 @@ public class ObjectGrabber : MonoBehaviour
 
 
     private GameObject _grabbedEntity = null;
-
 
     private void Update()
     {
@@ -50,13 +50,14 @@ public class ObjectGrabber : MonoBehaviour
 
     public void AttemptGrab()
     {
-        if (_grabbedEntity)
+        
+		if (_grabbedEntity)
         {
             _grabbedEntity.transform.position = GetHeldPosition();
             _grabbedEntity.layer = LayerMask.NameToLayer("Grabbable");
             Physics.IgnoreCollision(_grabbedEntity.GetComponent<Collider>(), _collider, false);
             _grabbedEntity = null;
-            _audioManager.PlayClip(_dropSound);
+            if (_portalShooter.portalgunstate != 0) _audioManager.PlayClip(_dropSound);
             return;
         }
 
@@ -73,9 +74,11 @@ public class ObjectGrabber : MonoBehaviour
                     _grabbedEntity = hit.collider.gameObject;
                     hit.collider.gameObject.layer = LayerMask.NameToLayer("Held");
                     Physics.IgnoreCollision(_grabbedEntity.GetComponent<Collider>(), _collider, true);
-                    _playerController.GetComponent<Animator>().Play("gomez_shoot", 0, 0.0f);
-                    _playerController.FlipSprite(Vector3.Dot(Camera.main.transform.right, hit.collider.transform.position - transform.position) < 0);
-                    _audioManager.PlayClip(_successPickSound);
+					if (_portalShooter.portalgunstate != 0){
+						_playerController.GetComponent<Animator>().Play("gomez_shoot", 0, 0.0f);
+						_playerController.FlipSprite(Vector3.Dot(Camera.main.transform.right, hit.collider.transform.position - transform.position) < 0);
+						_audioManager.PlayClip(_successPickSound);
+					}
                 }
             }
         }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PortalShooter : MonoBehaviour
 {
     public GomezController gomez;
+	public GameObject portalgunsprite;
     public GameObject portalPrefab;
     public LayerMask portalBlockMask;
     public LayerMask portalableMask;
@@ -51,15 +52,27 @@ public class PortalShooter : MonoBehaviour
 	public void UpgradeGun(int upgrade)
     {
         portalgunstate = upgrade;
+		if (portalgunstate == 0){
+			portalgunsprite.SetActive(false);
+		}else{
+			portalgunsprite.SetActive(true);
+		}
     }
 	
     void Start() {
         UpdateSettingsColors();
+		if (portalgunstate == 0){
+			portalgunsprite.SetActive(false);
+		}else{
+			portalgunsprite.SetActive(true);
+		}
     }
 
     void Update()
     {
-        if (LevelManager.IsPaused()) return;
+
+
+		if (LevelManager.IsPaused()) return;
 
         if (gomez.CanControl() && reloading == 0) {
             AttemptPortalShots();

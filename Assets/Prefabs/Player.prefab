@@ -347,6 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gomez: {fileID: 2439035921283316229}
+  portalgunsprite: {fileID: 58260941}
   portalPrefab: {fileID: 715676205825547992, guid: b09ee0c1b38f11c4ab14605c8ad518d1,
     type: 3}
   portalBlockMask:
@@ -384,6 +385,7 @@ MonoBehaviour:
   _collider: {fileID: 2439035921283316231}
   _audioManager: {fileID: 124721146}
   _playerController: {fileID: 2439035921283316229}
+  _portalShooter: {fileID: 5426820276684380499}
   _maxGrabbedDistance: 2
   _maxGrabbedSpeed: 20
   _holdDistance: 1.5
