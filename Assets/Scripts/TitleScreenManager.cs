@@ -16,7 +16,7 @@ public class TitleScreenManager : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine("Begin");
+		StartCoroutine("Begin");
     }
 
     IEnumerator Begin() {

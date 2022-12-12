@@ -1757,20 +1757,25 @@ MonoBehaviour:
       interactEvent:
         m_PersistentCalls:
           m_Calls: []
-    - name: bluecolor
-      displayName: Primary Portal Color
-      inputType: 3
-      defaultValue: blue
+    - name: portalsettings
+      displayName: Portal Settings
+      inputType: 0
+      defaultValue: 
       interactEvent:
         m_PersistentCalls:
-          m_Calls: []
-    - name: orangecolor
-      displayName: Secondary Portal Color
-      inputType: 3
-      defaultValue: orange
-      interactEvent:
-        m_PersistentCalls:
-          m_Calls: []
+          m_Calls:
+          - m_Target: {fileID: 58143410929352051}
+            m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+            m_MethodName: ChangeMenu
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: portal_settings
+              m_BoolArgument: 0
+            m_CallState: 2
     acceptName: ACCEPT
     acceptEvent:
       m_PersistentCalls:
@@ -1884,6 +1889,72 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: main:credits
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: portal_settings
+    displayName: PORTAL SETTINGS
+    width: 800
+    fields:
+    - name: primaryportalr
+      displayName: Primary Red Percent
+      inputType: 2
+      defaultValue: 0
+      interactEvent:
+        m_PersistentCalls:
+          m_Calls: []
+    - name: primaryportalg
+      displayName: Primary Green Percent
+      inputType: 2
+      defaultValue: 50
+      interactEvent:
+        m_PersistentCalls:
+          m_Calls: []
+    - name: primaryportalb
+      displayName: Primary Blue Percent
+      inputType: 2
+      defaultValue: 100
+      interactEvent:
+        m_PersistentCalls:
+          m_Calls: []
+    - name: secondaryportalr
+      displayName: Secondary Red Percent
+      inputType: 2
+      defaultValue: 70
+      interactEvent:
+        m_PersistentCalls:
+          m_Calls: []
+    - name: secondaryportalg
+      displayName: Secondary Green Percent
+      inputType: 2
+      defaultValue: 50
+      interactEvent:
+        m_PersistentCalls:
+          m_Calls: []
+    - name: secondaryportalb
+      displayName: Secondary Blue Percent
+      inputType: 2
+      defaultValue: 20
+      interactEvent:
+        m_PersistentCalls:
+          m_Calls: []
+    acceptName: 
+    acceptEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    denyName: BACK
+    denyEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 58143410929352051}
+          m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+          m_MethodName: ChangeMenu
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: settings
             m_BoolArgument: 0
           m_CallState: 2
   - name: exit

@@ -57,7 +57,7 @@ public class LevelManager : MonoBehaviour
             float realVolume = Mathf.Log10(Mathf.Max(0.0001f, percent * 0.01f)) * 20.0f;
             main._audioMixer.SetFloat(name == "music" ? "MusicVolume" : "MasterVolume", realVolume);
         }
-        if (name == "bluecolor" || name == "orangecolor")
+        if (name == "primaryportalr" || name == "primaryportalg" || name == "primaryportalb" || name == "secondaryportalr" || name == "secondaryportalg" || name == "secondaryportalb")
         {
             Player?.GetComponent<PortalShooter>().UpdateSettingsColors();
         }

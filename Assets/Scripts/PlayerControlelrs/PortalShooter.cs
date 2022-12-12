@@ -60,7 +60,7 @@ public class PortalShooter : MonoBehaviour
     }
 	
     void Start() {
-        UpdateSettingsColors();
+		UpdateSettingsColors();
 		if (portalgunstate == 0){
 			portalgunsprite.SetActive(false);
 		}else{
@@ -335,16 +335,35 @@ public class PortalShooter : MonoBehaviour
     public void UpdateSettingsColors() {
         string p1str = PlayerPrefs.GetString("setting_bluecolor");
         string p2str = PlayerPrefs.GetString("setting_orangecolor");
+		int p1r = PlayerPrefs.GetInt("setting_primaryportalr");
+		int p1g = PlayerPrefs.GetInt("setting_primaryportalg");
+		int p1b = PlayerPrefs.GetInt("setting_primaryportalb");
+		int p2r = PlayerPrefs.GetInt("setting_secondaryportalr");
+		int p2g = PlayerPrefs.GetInt("setting_secondaryportalg");
+		int p2b = PlayerPrefs.GetInt("setting_secondaryportalb");
+		
+		if (p1r == 0 && p1g == 0 && p1b == 0){
+			p1r = 0;
+			p1g = 50;
+			p1b = 100;
+		}
+		if (p2r == 0 && p2g == 0 && p2b == 0){
+			p2r = 70;
+			p2g = 50;
+			p2b = 20;
+		}
 
-        if (!PortalColorsDict.ContainsKey(p1str)) {
-            p1str = "blue";
-        }
-        if (!PortalColorsDict.ContainsKey(p2str)) {
-            p2str = "orange";
-        }
-
-        portal1Color = PortalColorsDict[p1str];
-        portal2Color = PortalColorsDict[p2str];
+		//math because I hate. This might look stupid and might be able to be less lines in the future, but optimization is not my priority for now.
+		float p1fr = (float)p1r;
+		float p1fg = (float)p1g;
+		float p1fb = (float)p1b;
+		float p2fr = (float)p2r;
+		float p2fg = (float)p2g;
+		float p2fb = (float)p2b;
+		
+		
+        portal1Color = new Color((p1fr/100),(p1fg/100),(p1fb/100));
+        portal2Color = new Color((p2fr/100),(p2fg/100),(p2fb/100));
 
         if (_portal1) {
             _portal1.GetComponent<Portal>().portalColor = portal1Color;
