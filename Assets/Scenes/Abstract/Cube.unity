@@ -36710,11 +36710,6 @@ PrefabInstance:
       propertyPath: DEBUG
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5426820276684380499, guid: bd7d2957677eb1c45813966e7867b350,
-        type: 3}
-      propertyPath: portalgunstate
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd7d2957677eb1c45813966e7867b350, type: 3}
 --- !u!114 &2439035920054356011 stripped
