@@ -11,7 +11,10 @@ public class MusicManager : MonoBehaviour
     public AudioSource bells;
     public AudioSource drums;
     public AudioSource lead;
+	public AudioSource beep;
+	public AudioSource boop;
     public AudioSource misc;
+	public AudioSource extra;
 
     public float volumeMultiplier = 0.8f;
     public float pauseVolumeMultiplier = 0.2f;
@@ -23,7 +26,10 @@ public class MusicManager : MonoBehaviour
         public float bells;
         public float drums;
         public float lead;
-        public float misc;
+        public float beep;
+		public float boop;
+		public float misc;
+		public float extra;
     }
 
     [Serializable]
@@ -51,7 +57,10 @@ public class MusicManager : MonoBehaviour
         bells.ignoreListenerPause = true;
         drums.ignoreListenerPause = true;
         lead.ignoreListenerPause = true;
-        misc.ignoreListenerPause = true;
+        beep.ignoreListenerPause = true;
+		boop.ignoreListenerPause = true;
+		misc.ignoreListenerPause = true;
+		extra.ignoreListenerPause = true;
     }
 
     void UpdateVolumes(bool immediate) {
@@ -77,7 +86,10 @@ public class MusicManager : MonoBehaviour
             bells.volume = Mathf.MoveTowards(bells.volume, preset.bells * mult, t);
             drums.volume = Mathf.MoveTowards(drums.volume, preset.drums * mult, t);
             lead.volume = Mathf.MoveTowards(lead.volume, preset.lead * mult, t);
-            misc.volume = Mathf.MoveTowards(misc.volume, preset.misc * mult, t);
+            beep.volume = Mathf.MoveTowards(beep.volume, preset.beep * mult, t);
+			boop.volume = Mathf.MoveTowards(boop.volume, preset.boop * mult, t);
+			misc.volume = Mathf.MoveTowards(misc.volume, preset.misc * mult, t);
+			extra.volume = Mathf.MoveTowards(extra.volume, preset.extra * mult, t);
         }
     }
 
@@ -88,6 +100,9 @@ public class MusicManager : MonoBehaviour
         bells.Play();
         drums.Play();
         lead.Play();
+		beep.Play();
+		boop.Play();
         misc.Play();
+		extra.Play();
     }
 }

@@ -122,4 +122,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Beginnings/1_LaserTilt.unity
     guid: 4e2ec2100d8d7f145afedbc91fee6ab2
+  - enabled: 1
+    path: Assets/Scenes/Behind/2_NoPortals.unity
+    guid: a28996703da095b43b7f7c1be019aadb
+  - enabled: 1
+    path: Assets/Scenes/Behind/2_Catwalk.unity
+    guid: 999b9e7c835b620468463bc1721b4924
   m_configObjects: {}
