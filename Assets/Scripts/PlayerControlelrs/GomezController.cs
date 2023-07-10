@@ -331,7 +331,7 @@ public class GomezController : MonoBehaviour
         {
             var obj = hit.collider.gameObject;
             var direction = obj.transform.forward;
-            doClimb();
+            doClimb(obj.transform.position);
         }
     }
 
@@ -438,9 +438,24 @@ public class GomezController : MonoBehaviour
         _climbState = 1;
 
     }
-    private void doClimb()
+    private void doClimb(Vector3 wall)
     {
-
+        if (_cameraController.PhysicsAngle == 0)
+        {
+            transform.position =  new Vector3(transform.position.x, transform.position.y, wall.z - 0.3f);
+        }
+        else if (_cameraController.PhysicsAngle == 90)
+        {
+            transform.position = new Vector3(wall.x - 0.3f, transform.position.y, transform.position.z);
+        }
+        else if (_cameraController.PhysicsAngle == 180)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, wall.z + 0.3f);
+        }
+        else if (_cameraController.PhysicsAngle == 270)
+        {
+            transform.position = new Vector3(wall.x + 0.3f, transform.position.y, transform.position.z);
+        }
         //_animator.Play("gomez_wallgrab", 0, 1.0f);
         _climbState = 2;
 
