@@ -23,11 +23,14 @@ public class GomezController : MonoBehaviour
     [SerializeField] private float _jumpHoldMultiplier;
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private LayerMask _passageMask;
+    [SerializeField] private LayerMask _grabbyMask;
 
     private bool _grounded = true;
 
     private float _wishDir = 0;
+    private float _wishOrn = 0;
     private int _jumpState = 0;
+    private int _climbState = 0;
     private float _prevVelY = 0;
     private Vector3 _lastGroundPos;
 
@@ -45,6 +48,12 @@ public class GomezController : MonoBehaviour
     public bool Grounded => _grounded;
     public bool IsPassing => _passage != null;
     public LayerMask GroundMask => _groundMask;
+
+    private bool JumpOverride = false;
+    private bool Vup = false;
+    private bool Vdown = false;
+    private bool Vleft = false;
+    private bool Vright = false;
 
     private void Start()
     {
@@ -100,25 +109,43 @@ public class GomezController : MonoBehaviour
 
     private void FetchInputs()
     {
-        if (_blockMovement) return;
-
         _wishDir = 0;
-        if (Input.GetKey(KeyCode.A)) _wishDir -= 1;
-        if (Input.GetKey(KeyCode.D)) _wishDir += 1;
-
+        _wishOrn = 0;
+        if (_blockMovement) return;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (_jumpState == 0) _jumpState = 1;
-        } else if (!Input.GetKey(KeyCode.Space))
+            if (_jumpState == 0)
+            {
+                if (_climbState != 0){
+                    JumpOverride = true;
+                    _climbState = 0;
+                    }
+                _jumpState = 1;
+            }
+        }
+        else if (!Input.GetKey(KeyCode.Space))
         {
             _jumpState = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && CanControl())
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            AttemptPassage();
+            if (CanControl())
+            {
+                AttemptPassage();
+                AttemptWallGrab();
+            }
         }
+        if (Input.GetKey(KeyCode.A)) _wishDir -= 1;
+
+        if (Input.GetKey(KeyCode.D)) _wishDir += 1;
+
+        if (Input.GetKey(KeyCode.S) && _climbState == 2) _wishOrn -= 1;
+
+        if (Input.GetKey(KeyCode.W) && _climbState == 2) _wishOrn += 1;
+        //if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Space)) AttemptLGrab();
+
     }
 
     // updates ground flag
@@ -146,7 +173,49 @@ public class GomezController : MonoBehaviour
             }
         }
     }
-	public void PistoneBoost(){
+
+    // updates which directions you can go for climbing
+    private void CheckVine()
+    {
+        //LILELY JANKY AS HELL. There probably is a better way to do this, but for now, deal with this hell
+        Vector3 OgTM = transform.position;
+
+        Vector3 Pxn = new Vector3(OgTM.x + 0.2f, OgTM.y, OgTM.z);
+        Vector3 Pyn = new Vector3(OgTM.x, OgTM.y + 0.2f, OgTM.z);
+        Vector3 Pzn = new Vector3(OgTM.x, OgTM.y, OgTM.z + 0.2f);
+        Vector3 Nxn = new Vector3(OgTM.x - 0.2f, OgTM.y, OgTM.z);
+        Vector3 Nyn = new Vector3(OgTM.x, OgTM.y - 0.2f, OgTM.z);
+        Vector3 Nzn = new Vector3(OgTM.x, OgTM.y, OgTM.z - 0.2f);
+        Vup = Physics.Raycast(Pyn, Camera.main.transform.forward, out var hit, 128.0f, _grabbyMask);
+        Vdown = Physics.Raycast(Nyn, Camera.main.transform.forward, out var hat, 128.0f, _grabbyMask);
+        
+        if (_cameraController.PhysicsAngle == 0)
+        {
+            Vleft = Physics.Raycast(Nxn, Camera.main.transform.forward, out var hot, 128.0f, _grabbyMask);
+            Vright = Physics.Raycast(Pxn, Camera.main.transform.forward, out var hut, 128.0f, _grabbyMask);
+        } else if (_cameraController.PhysicsAngle == 90)
+        {
+            Vleft = Physics.Raycast(Pzn, Camera.main.transform.forward, out var hot, 128.0f, _grabbyMask);
+            Vright = Physics.Raycast(Nzn, Camera.main.transform.forward, out var hut, 128.0f, _grabbyMask);
+        } else if (_cameraController.PhysicsAngle == 180)
+        {
+            Vleft = Physics.Raycast(Pxn, Camera.main.transform.forward, out var hot, 128.0f, _grabbyMask);
+            Vright = Physics.Raycast(Nxn, Camera.main.transform.forward, out var hut, 128.0f, _grabbyMask);
+        }
+        else if (_cameraController.PhysicsAngle == 270)
+        {
+            Vleft = Physics.Raycast(Nzn, Camera.main.transform.forward, out var hot, 128.0f, _grabbyMask);
+            Vright = Physics.Raycast(Pzn, Camera.main.transform.forward, out var hut, 128.0f, _grabbyMask);
+        }
+
+
+
+
+
+    }
+
+
+    public void PistoneBoost(){
 		boosted = true;
 	}
     private void HandleMovement()
@@ -167,9 +236,13 @@ public class GomezController : MonoBehaviour
 		}
 		boosted = false;
 
+        
+
+
         // jumping
-        if (_grounded && _jumpState == 1)
+        if ((_grounded || JumpOverride) && _jumpState != 0)
         {
+            JumpOverride = false;
             vel.y = _jumpForce;
             _grounded = false;
             _jumpState = 2;
@@ -180,25 +253,55 @@ public class GomezController : MonoBehaviour
         }
 
         // gravity
-        if (!_grounded)
+        if (!_grounded && _climbState == 0)
         {
             vel.y += Physics.gravity.y * (_jumpState == 2 ? _jumpHoldMultiplier : 1);
         }
 
         // horizontal movement
+        
         Vector3 moveDir = Quaternion.Euler(0, _cameraController.PhysicsAngle + 90, 0) * Vector3.forward;
         float curSpeed = Vector3.Dot(_rigidbody.velocity, moveDir);
+        if (_climbState == 0)
+        {
+            
 
-        curSpeed += (_grounded ? _groundAccel : _airAccel) * _wishDir;
-        float maxCurSpeed = (_grounded ? _maxSpeed : _maxAirSpeed);
-        if (Mathf.Abs(curSpeed) > maxCurSpeed)
+
+            curSpeed += (_grounded ? _groundAccel : _airAccel) * _wishDir;
+            float maxCurSpeed = (_grounded ? _maxSpeed : _maxAirSpeed);
+            if (Mathf.Abs(curSpeed) > maxCurSpeed)
+            {
+                curSpeed = curSpeed / Mathf.Abs(curSpeed) * maxCurSpeed;
+            }
+            if (_wishDir == 0)
+            {
+                curSpeed *= 1 - (_grounded ? _groundFriction : _airFriction);
+            }
+            
+        } else // climb movement
         {
-            curSpeed = curSpeed / Mathf.Abs(curSpeed) * maxCurSpeed;
+            CheckVine();
+            curSpeed = 2 * _wishDir;
+            vel.y = 2 * _wishOrn;
+            if (!Vup && vel.y > 0)
+            {
+                vel.y = 0;
+            }
+            if (!Vdown && vel.y < 0)
+            {
+                vel.y = 0;
+            }
+            if (!Vright && curSpeed > 0)
+            {
+                curSpeed = 0;
+            }
+            if (!Vleft && curSpeed < 0)
+            {
+                curSpeed = 0;
+            }
+
         }
-        if (_wishDir == 0)
-        {
-            curSpeed *= 1 - (_grounded ? _groundFriction : _airFriction);
-        }
+        
         vel = moveDir * curSpeed + Vector3.up * vel.y;
 
         _rigidbody.velocity = vel;
@@ -218,6 +321,27 @@ public class GomezController : MonoBehaviour
                 UsePassage(passage);
             }
         }
+    }
+
+    public void AttemptWallGrab()
+    {
+
+        bool UpDong = Physics.Raycast(transform.position, Camera.main.transform.forward, out var hit, 128.0f, _grabbyMask);
+        if (UpDong)
+        {
+            var obj = hit.collider.gameObject;
+            var direction = obj.transform.forward;
+            doClimb();
+        }
+    }
+
+    public void AttemptLGrab()
+    {
+        bool wallInWay = Physics.Raycast(transform.position, -Camera.main.transform.forward, out var hit, 128.0f, _groundMask);
+        if (!_grounded || wallInWay) return;
+        
+        //This is literally not even a fetus yet. Don't judge, it'll change (I hope)
+        DoAnLGrab();
     }
 
     private void UpdatePassageInteraction()
@@ -307,6 +431,20 @@ public class GomezController : MonoBehaviour
         if(!exit) passage.OnPassageEntry?.Invoke();
     }
 
+    private void DoAnLGrab()
+    {
+
+        //_animator.Play("gomez_ledgegrab", 0, 1.0f);
+        _climbState = 1;
+
+    }
+    private void doClimb()
+    {
+
+        //_animator.Play("gomez_wallgrab", 0, 1.0f);
+        _climbState = 2;
+
+    }
 
     private void UpdateAnimator()
     {
