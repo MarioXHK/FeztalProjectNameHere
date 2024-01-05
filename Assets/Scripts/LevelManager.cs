@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
     public static FEZCameraController Camera => main._camera;
     public static PauseMenu PauseMenu => main._pauseMenu;
     public static bool PuzzleFinished => main._puzzleFinished;
+    public static int totalScore;
 
     void Awake() => _main = this;
     
